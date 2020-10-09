@@ -1,8 +1,10 @@
-package com.example.nearbyplaces;
+package com.example.nearbyplaces.nearbyplaces;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.nearbyplaces.R;
 
 public class NearByPlacesActivity extends AppCompatActivity {
 

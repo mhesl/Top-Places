@@ -1,6 +1,6 @@
 package com.example.nearbyplaces.root;
 
-import com.example.nearbyplaces.NearByPlacesActivity;
+import com.example.nearbyplaces.nearbyplaces.NearByPlacesActivity;
 
 import javax.inject.Singleton;
 

@@ -1,6 +1,6 @@
 package com.example.nearbyplaces.root;
 
-import com.example.nearbyplaces.MainActivity;
+import com.example.nearbyplaces.NearByPlacesActivity;
 
 import javax.inject.Singleton;
 
@@ -10,5 +10,5 @@ import dagger.Component;
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
 
-    void inject(MainActivity target);
+    void inject(NearByPlacesActivity target);
 }

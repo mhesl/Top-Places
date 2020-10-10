@@ -27,13 +27,13 @@ public class NearByPlacesActivity extends AppCompatActivity implements NearbyPla
     protected void onStart() {
         super.onStart();
         presenter.setView(this);
-        presenter.loadData();
+//        presenter.loadData();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        presenter.rxUnsubscribe();
+        //presenter.rxUnsubscribe();
     }
 
     @Override

@@ -12,11 +12,13 @@ public interface NearbyPlacesActivityMVP {
 
     interface Presenter {
 
-        void setView(NearbyPlacesActivityMVP.View view);
 
         void loadData();
 
         void rxUnsubscribe();
+
+        void setView(NearbyPlacesActivityMVP.View view);
+
 
     }
 

@@ -13,8 +13,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class ApiModuleForPlaces {
 
-    public final String BASE_URL = "";
-    public final String API_KEY = "";
+    public final String BASE_URL = "https://api.foursquare.com/v2/venues/search";
+    public final String CLIENT_ID = "PV5SZYDISY1OXOT4RG2RMVRMK2O2KSKCS1XA040HNT0C4GSE";
+    public final String CLIENT_SECRET = "2QYALZR2AGFD0CKBO150MAYHDJ0Y22YLN0RCK2APX0BNSYCP";
 
 
     @Provides
@@ -26,8 +27,11 @@ public class ApiModuleForPlaces {
         return new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(chain -> {
             Request request = chain.request();
             HttpUrl url = request.url().newBuilder().addQueryParameter(
-                    "api_key",
-                    API_KEY
+                    "client_id",
+                    CLIENT_ID
+            ).addQueryParameter(
+                    "client_secret",
+                    CLIENT_SECRET
             ).build();
             request = request.newBuilder().url(url).build();
             return chain.proceed(request);

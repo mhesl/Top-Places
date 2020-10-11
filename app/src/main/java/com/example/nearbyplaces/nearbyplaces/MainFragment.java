@@ -8,12 +8,23 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.nearbyplaces.R;
+import com.example.nearbyplaces.root.ApplicationModule;
 
 public class MainFragment extends Fragment {
+    private ApplicationModule applicationModule;
+
+
+    private RecyclerView recyclerView;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = LayoutInflater.from(applicationModule.provideContext()).inflate(R.layout.main_fragment, container, false);
+        recyclerView = view.findViewById(R.id.main_recycler_view);
+        return view;
     }
 }

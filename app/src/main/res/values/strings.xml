@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NearbyPlaces</string>
+    <string name="place_name">place name</string>
+    <string name="place_address">address of the place</string>
 </resources>

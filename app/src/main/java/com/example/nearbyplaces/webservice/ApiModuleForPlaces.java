@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class ApiModuleForPlaces {
 
-    public final String BASE_URL = "https://api.foursquare.com/v2/venues/search";
+    public final String BASE_URL = "https://api.foursquare.com/v2/venues";
     public final String CLIENT_ID = "PV5SZYDISY1OXOT4RG2RMVRMK2O2KSKCS1XA040HNT0C4GSE";
     public final String CLIENT_SECRET = "2QYALZR2AGFD0CKBO150MAYHDJ0Y22YLN0RCK2APX0BNSYCP";
 
@@ -32,6 +32,12 @@ public class ApiModuleForPlaces {
             ).addQueryParameter(
                     "client_secret",
                     CLIENT_SECRET
+            ).addQueryParameter(
+                    "v",
+                    "20200101"
+            ).addQueryParameter(
+                    "ll",
+                    "35.6892,51.3890"
             ).build();
             request = request.newBuilder().url(url).build();
             return chain.proceed(request);

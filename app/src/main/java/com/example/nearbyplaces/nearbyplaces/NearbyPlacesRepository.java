@@ -1,7 +1,7 @@
 package com.example.nearbyplaces.nearbyplaces;
 
 import com.example.nearbyplaces.webservice.NearbyPlacesApiService;
-import com.example.nearbyplaces.webservice.apimodel.Result;
+import com.example.nearbyplaces.webservice.apimodel.TopPlaces;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class NearbyPlacesRepository implements Repository {
 
     private static final long STALE_MS = 20 * 1000; // Data is stale after 20 seconds
     private NearbyPlacesApiService nearbyPlacesApiService;
-    private List<Result> results;
+    private List<TopPlaces> results;
     private long timestamp;
 
     public NearbyPlacesRepository(NearbyPlacesApiService nearbyPlacesApiService) {
@@ -22,17 +22,17 @@ public class NearbyPlacesRepository implements Repository {
     }
 
     @Override
-    public Observable<Result> getResultsFromMemory() {
+    public Observable<TopPlaces> getResultsFromMemory() {
         return null;
     }
 
     @Override
-    public Observable<Result> getResultsFromNetwork() {
+    public Observable<TopPlaces> getResultsFromNetwork() {
         return null;
     }
 
     @Override
-    public Observable<Result> getResultData() {
+    public Observable<TopPlaces> getResultData() {
         return null;
     }
 }

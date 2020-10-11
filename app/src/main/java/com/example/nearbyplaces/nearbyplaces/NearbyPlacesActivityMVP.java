@@ -6,7 +6,7 @@ import io.reactivex.Observable;
 public interface NearbyPlacesActivityMVP {
 
     interface View {
-        void UpdateData(ViewModel viewModel);
+        void updateData(ViewModel viewModel);
 
     }
 

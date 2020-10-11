@@ -32,11 +32,13 @@ public class NearbyPlacesPresenter implements NearbyPlacesActivityMVP.Presenter 
                     public void onError(Throwable e) {
                         e.printStackTrace();
 
+
                     }
 
                     @Override
                     public void onNext(ViewModel viewModel) {
-
+                        if (view != null)
+                            view.updateData(viewModel);
                     }
 
                 });

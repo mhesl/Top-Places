@@ -25,6 +25,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(applicationModule.provideContext()).inflate(R.layout.main_fragment, container, false);
         recyclerView = view.findViewById(R.id.main_recycler_view);
+
         return view;
     }
 }

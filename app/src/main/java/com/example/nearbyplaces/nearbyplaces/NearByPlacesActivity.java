@@ -37,7 +37,7 @@ public class NearByPlacesActivity extends AppCompatActivity implements NearbyPla
     }
 
     @Override
-    public void UpdateData(ViewModel viewModel) {
+    public void updateData(ViewModel viewModel) {
 
     }
 }

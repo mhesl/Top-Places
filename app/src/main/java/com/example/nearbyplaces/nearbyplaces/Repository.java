@@ -1,16 +1,16 @@
 package com.example.nearbyplaces.nearbyplaces;
 
-import com.example.nearbyplaces.webservice.apimodel.TopPlaces;
+import com.example.nearbyplaces.webservice.apimodel.Response;
 
 import io.reactivex.Observable;
 
 public interface Repository {
 
-    Observable<TopPlaces> getResultsFromMemory();
+    Observable<Response> getResultsFromMemory();
 
-    Observable<TopPlaces> getResultsFromNetwork();
+    Observable<Response> getResultsFromNetwork();
 
-    Observable<TopPlaces> getResultData();
+    Observable<Response> getResultData();
 
 
 }

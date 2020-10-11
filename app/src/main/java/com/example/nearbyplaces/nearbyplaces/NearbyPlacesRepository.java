@@ -1,6 +1,7 @@
 package com.example.nearbyplaces.nearbyplaces;
 
 import com.example.nearbyplaces.webservice.NearbyPlacesApiService;
+import com.example.nearbyplaces.webservice.apimodel.Response;
 import com.example.nearbyplaces.webservice.apimodel.TopPlaces;
 
 import java.util.ArrayList;
@@ -22,17 +23,17 @@ public class NearbyPlacesRepository implements Repository {
     }
 
     @Override
-    public Observable<TopPlaces> getResultsFromMemory() {
+    public Observable<Response> getResultsFromMemory() {
         return null;
     }
 
     @Override
-    public Observable<TopPlaces> getResultsFromNetwork() {
+    public Observable<Response> getResultsFromNetwork() {
         return null;
     }
 
     @Override
-    public Observable<TopPlaces> getResultData() {
+    public Observable<Response> getResultData() {
         return null;
     }
 }

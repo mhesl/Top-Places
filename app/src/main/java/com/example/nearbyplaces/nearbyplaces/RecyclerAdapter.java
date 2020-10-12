@@ -1,5 +1,6 @@
 package com.example.nearbyplaces.nearbyplaces;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.nearbyplaces.R;
-import com.example.nearbyplaces.root.ApplicationModule;
+import com.example.nearbyplaces.nearbyplaces.interfaces.RecyclerViewCLickListener;
 import com.example.nearbyplaces.webservice.apimodel.Venue;
 
 import java.net.MalformedURLException;
@@ -19,12 +20,15 @@ import java.net.URL;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
-    private ApplicationModule applicationModule;
+    public static RecyclerViewCLickListener itemListener;
     private List<Venue> dataSet;
+    private Context context;
 
 
-    public RecyclerAdapter(List<Venue> dataSet) {
+    public RecyclerAdapter(List<Venue> dataSet, RecyclerViewCLickListener itemListener, Context context) {
         this.dataSet = dataSet;
+        RecyclerAdapter.itemListener = itemListener;
+        this.context = context;
     }
 
     @NonNull
@@ -38,7 +42,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         holder.place_name.setText(dataSet.get(position).getName());
         holder.place_address.setText(dataSet.get(position).getLocation().getAddress());
         try {
-            Glide.with(applicationModule.provideContext()).load(new URL(dataSet.get(position).getCategories().get(0).getIcon().getPrefix())).centerCrop().into(holder.place_image);
+            Glide.with(context)
+                    .load(new URL(dataSet.get(position)
+                            .getCategories().get(0)
+                            .getIcon().getPrefix()))
+                    .centerCrop()
+                    .into(holder.place_image);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -60,6 +69,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             place_address = itemView.findViewById(R.id.place_address);
             place_image = itemView.findViewById(R.id.place_image);
             place_name = itemView.findViewById(R.id.place_name);
+            itemView.setOnClickListener(view -> RecyclerAdapter.itemListener.onClickListener(getLayoutPosition()));
         }
     }
 }

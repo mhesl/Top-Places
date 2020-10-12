@@ -1,5 +1,6 @@
 package com.example.nearbyplaces.root;
 
+import com.example.nearbyplaces.nearbyplaces.MainFragment;
 import com.example.nearbyplaces.nearbyplaces.NearByPlacesActivity;
 import com.example.nearbyplaces.nearbyplaces.NearbyPlacesModule;
 import com.example.nearbyplaces.webservice.ApiModuleForPlaces;
@@ -13,4 +14,7 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     void inject(NearByPlacesActivity target);
+
+    void inj(MainFragment mainFragment);
+
 }

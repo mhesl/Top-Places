@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 
 public interface NearbyPlacesApiService {
 
-    @GET("/search")
+    @GET("search")
     Observable<TopPlaces> getNearByPlaces();
 
 }

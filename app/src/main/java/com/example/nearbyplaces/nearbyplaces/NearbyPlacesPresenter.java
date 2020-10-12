@@ -1,5 +1,7 @@
 package com.example.nearbyplaces.nearbyplaces;
 
+import android.util.Log;
+
 import com.example.nearbyplaces.webservice.apimodel.Venue;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,6 +22,7 @@ public class NearbyPlacesPresenter implements NearbyPlacesActivityMVP.Presenter 
 
     @Override
     public void loadData() {
+        Log.d("yeap", "loaddata");
         subscription = model
                 .result()
                 .subscribeOn(Schedulers.io())
@@ -39,8 +42,11 @@ public class NearbyPlacesPresenter implements NearbyPlacesActivityMVP.Presenter 
 
                     @Override
                     public void onNext(Venue venue) {
-                        if (view != null)
-                            view.updateData(venue);
+                        {
+                            if (view != null)
+                                view.updateData(venue);
+                        }
+
                     }
 
                 });

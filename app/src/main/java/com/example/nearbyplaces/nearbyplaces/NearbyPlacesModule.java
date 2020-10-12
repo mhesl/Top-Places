@@ -16,6 +16,7 @@ public class NearbyPlacesModule {
         return new NearbyPlacesPresenter(topMoviesModel);
     }
 
+
     @Provides
     public NearbyPlacesActivityMVP.Model provideTopMoviesActivityModel(Repository repository) {
         return new NearbyPlacesModel(repository);

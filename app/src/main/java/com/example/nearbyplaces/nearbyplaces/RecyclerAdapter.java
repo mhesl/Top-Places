@@ -10,13 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.nearbyplaces.R;
 import com.example.nearbyplaces.nearbyplaces.interfaces.RecyclerViewCLickListener;
 import com.example.nearbyplaces.webservice.apimodel.Venue;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
@@ -41,16 +38,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.place_name.setText(dataSet.get(position).getName());
         holder.place_address.setText(dataSet.get(position).getLocation().getAddress());
-        try {
-            Glide.with(context)
-                    .load(new URL(dataSet.get(position)
-                            .getCategories().get(0)
-                            .getIcon().getPrefix()))
-                    .centerCrop()
-                    .into(holder.place_image);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Glide.with(context)
+//                    .load(new URL(dataSet.get(position)
+//                            .getCategories().get(0)
+//                            .getIcon().getPrefix()))
+//                    .centerCrop()
+//                    .into(holder.place_image);
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override

@@ -1,12 +1,14 @@
 package com.example.nearbyplaces.nearbyplaces;
 
 
+import com.example.nearbyplaces.webservice.apimodel.Venue;
+
 import io.reactivex.Observable;
 
 public interface NearbyPlacesActivityMVP {
 
     interface View {
-        void updateData(ViewModel viewModel);
+        void updateData(Venue viewModel);
 
     }
 
@@ -25,7 +27,7 @@ public interface NearbyPlacesActivityMVP {
 
     interface Model {
 
-        Observable<ViewModel> result();
+        Observable<Venue> result();
 
     }
 }

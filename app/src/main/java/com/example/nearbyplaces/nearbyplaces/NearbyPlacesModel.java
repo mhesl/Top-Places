@@ -1,5 +1,7 @@
 package com.example.nearbyplaces.nearbyplaces;
 
+import com.example.nearbyplaces.webservice.apimodel.Venue;
+
 import io.reactivex.Observable;
 
 public class NearbyPlacesModel implements NearbyPlacesActivityMVP.Model {
@@ -11,7 +13,7 @@ public class NearbyPlacesModel implements NearbyPlacesActivityMVP.Model {
 
 
     @Override
-    public Observable<ViewModel> result() {
-        return null;
+    public Observable<Venue> result() {
+        return repository.getResultData();
     }
 }

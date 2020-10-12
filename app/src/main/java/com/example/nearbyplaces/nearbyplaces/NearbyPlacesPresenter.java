@@ -1,5 +1,7 @@
 package com.example.nearbyplaces.nearbyplaces;
 
+import com.example.nearbyplaces.webservice.apimodel.Venue;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
@@ -22,7 +24,7 @@ public class NearbyPlacesPresenter implements NearbyPlacesActivityMVP.Presenter 
                 .result()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<ViewModel>() {
+                .subscribeWith(new DisposableObserver<Venue>() {
                     @Override
                     public void onComplete() {
                     }
@@ -36,9 +38,9 @@ public class NearbyPlacesPresenter implements NearbyPlacesActivityMVP.Presenter 
                     }
 
                     @Override
-                    public void onNext(ViewModel viewModel) {
+                    public void onNext(Venue venue) {
                         if (view != null)
-                            view.updateData(viewModel);
+                            view.updateData(venue);
                     }
 
                 });

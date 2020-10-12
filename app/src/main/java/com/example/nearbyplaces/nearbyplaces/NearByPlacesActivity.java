@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nearbyplaces.R;
 import com.example.nearbyplaces.root.App;
+import com.example.nearbyplaces.webservice.apimodel.Venue;
 
 import javax.inject.Inject;
 
@@ -19,7 +20,6 @@ public class NearByPlacesActivity extends AppCompatActivity implements NearbyPla
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_near_by_places);
-
         ((App) getApplication()).getComponent().inject(this);
     }
 
@@ -37,7 +37,7 @@ public class NearByPlacesActivity extends AppCompatActivity implements NearbyPla
     }
 
     @Override
-    public void updateData(ViewModel viewModel) {
+    public void updateData(Venue viewModel) {
 
     }
 }

@@ -12,15 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.nearbyplaces.R;
 import com.example.nearbyplaces.root.ApplicationModule;
+import com.example.nearbyplaces.webservice.apimodel.Venue;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
     private ApplicationModule applicationModule;
-    private List<ViewModel> dataSet;
+    private List<Venue> dataSet;
 
 
-    public RecyclerAdapter(List<ViewModel> dataSet) {
+    public RecyclerAdapter(List<Venue> dataSet) {
         this.dataSet = dataSet;
     }
 
@@ -33,8 +36,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.place_name.setText(dataSet.get(position).getName());
-        holder.place_address.setText(dataSet.get(position).getStreetName());
-        Glide.with(applicationModule.provideContext()).load(holder.place_image).centerCrop().into(holder.place_image);
+        holder.place_address.setText(dataSet.get(position).getLocation().getAddress());
+        try {
+            Glide.with(applicationModule.provideContext()).load(new URL(dataSet.get(position).getCategories().get(0).getIcon().getPrefix())).centerCrop().into(holder.place_image);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

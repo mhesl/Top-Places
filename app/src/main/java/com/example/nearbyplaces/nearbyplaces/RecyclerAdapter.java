@@ -38,6 +38,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.place_name.setText(dataSet.get(position).getName());
         holder.place_address.setText(dataSet.get(position).getLocation().getAddress());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RecyclerAdapter.itemListener.onClickListener(position);
+            }
+        });
 //        try {
 //            Glide.with(context)
 //                    .load(new URL(dataSet.get(position)

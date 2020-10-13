@@ -1,5 +1,7 @@
 package com.example.nearbyplaces.webservice;
 
+import com.example.nearbyplaces.nearbyplaces.NearByPlacesActivity;
+
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.HttpUrl;
@@ -37,7 +39,7 @@ public class ApiModuleForPlaces {
                     "20200101"
             ).addQueryParameter(
                     "ll",
-                    "35.6892,51.3890"
+                    NearByPlacesActivity.stringLatitude + "," + NearByPlacesActivity.stringLongitude
             ).build();
             request = request.newBuilder().url(url).build();
             return chain.proceed(request);

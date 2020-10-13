@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nearbyplaces.BaseFragment;
 import com.example.nearbyplaces.R;
 import com.example.nearbyplaces.nearbyplaces.interfaces.RecyclerViewCLickListener;
 import com.example.nearbyplaces.root.App;
@@ -21,17 +21,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainFragment extends Fragment implements RecyclerViewCLickListener, NearbyPlacesActivityMVP.View {
+public class MainFragment extends BaseFragment implements NearbyPlacesActivityMVP.View {
 
     @Inject
     NearbyPlacesActivityMVP.Presenter presenter;
 
+
     private RecyclerView recyclerView;
     private List<Venue> dataSet;
     private RecyclerAdapter adapter;
+    private RecyclerViewCLickListener cLickListener;
 
 
     public MainFragment(RecyclerViewCLickListener cLickListener) {
+        this.cLickListener = cLickListener;
     }
 
 
@@ -42,17 +45,12 @@ public class MainFragment extends Fragment implements RecyclerViewCLickListener,
         ((App) getActivity().getApplication()).getComponent().inj(this);
         recyclerView = view.findViewById(R.id.main_recycler_view);
         dataSet = new ArrayList<>();
-        adapter = new RecyclerAdapter(dataSet, this, getContext());
+        adapter = new RecyclerAdapter(dataSet, cLickListener, getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;
     }
 
-    @Override
-    public void onClickListener(int position) {
-
-
-    }
 
     @Override
     public void onStart() {
@@ -62,8 +60,16 @@ public class MainFragment extends Fragment implements RecyclerViewCLickListener,
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.rxUnsubscribe();
+    }
+
+    @Override
     public void updateData(Venue viewModel) {
         dataSet.add(viewModel);
         adapter.notifyItemInserted(dataSet.size() - 1);
     }
+
+
 }

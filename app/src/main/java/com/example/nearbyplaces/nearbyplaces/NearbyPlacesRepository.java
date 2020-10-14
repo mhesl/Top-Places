@@ -12,7 +12,7 @@ import io.reactivex.functions.Function;
 
 public class NearbyPlacesRepository implements Repository {
 
-    private static final long STALE_MS = 30 * 1000; // Data is stale after 20 seconds
+    private static final long STALE_MS = 30 * 1000; // Data is stale after 30 seconds
     private NearbyPlacesApiService nearbyPlacesApiService;
     private List<Venue> results;
     private long timestamp;

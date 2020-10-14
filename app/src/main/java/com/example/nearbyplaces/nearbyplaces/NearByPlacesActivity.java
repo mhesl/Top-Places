@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.nearbyplaces.BaseFragment;
 import com.example.nearbyplaces.R;
+import com.example.nearbyplaces.database.DataBaseHelper;
 import com.example.nearbyplaces.nearbyplaces.interfaces.RecyclerViewCLickListener;
 import com.example.nearbyplaces.root.App;
 
@@ -36,6 +37,7 @@ public class NearByPlacesActivity extends AppCompatActivity implements RecyclerV
         stringLongitude = getIntent().getStringExtra("latitude");
         stringLatitude = getIntent().getStringExtra("longitude");
 
+        DataBaseHelper.getInstance(this);
         ((App) getApplication()).getComponent().inject(this);
         mainFragment = new MainFragment(this);
         ft = getSupportFragmentManager().beginTransaction();

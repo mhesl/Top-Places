@@ -44,16 +44,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 RecyclerAdapter.itemListener.onClickListener(position);
             }
         });
-//        try {
-//            Glide.with(context)
-//                    .load(new URL(dataSet.get(position)
-//                            .getCategories().get(0)
-//                            .getIcon().getPrefix()))
-//                    .centerCrop()
-//                    .into(holder.place_image);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
+//        System.out.println(dataSet.get(position)
+//                .getCategories().get(0)
+//                .getIcon().getPrefix());
+//        GlideUrl glideUrl = new GlideUrl(dataSet.get(position)
+//                .getCategories().get(0)
+//                .getIcon().getPrefix(), new LazyHeaders.Builder()
+//                .addHeader("CLIENT_ID", "PV5SZYDISY1OXOT4RG2RMVRMK2O2KSKCS1XA040HNT0C4GSE")
+//                .addHeader("CLIENT_SECRET" , "2QYALZR2AGFD0CKBO150MAYHDJ0Y22YLN0RCK2APX0BNSYCP").build());
+//        Glide.with(context)
+//                .load(glideUrl)
+//                .centerCrop()
+//                .into(holder.place_image);
     }
 
     @Override

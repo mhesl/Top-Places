@@ -33,6 +33,16 @@ public class NearByPlacesActivity extends AppCompatActivity implements RecyclerV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_near_by_places);
+        // getting latitude and longitude of location from intent
+        stringLongitude = getIntent().getStringExtra("latitude");
+        stringLatitude = getIntent().getStringExtra("longitude");
+
+        ((App) getApplication()).getComponent().inject(this);
+        mainFragment = new MainFragment(this);
+        ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.main_fragment_container_view, mainFragment);
+        ft.commit();
+
         // check if GPS enabled
         GPSTracker gpsTracker = new GPSTracker(this);
         if (gpsTracker.getIsGPSTrackingEnabled()) {
@@ -44,11 +54,7 @@ public class NearByPlacesActivity extends AppCompatActivity implements RecyclerV
             gpsTracker.showSettingsAlert();
 
         }
-        ((App) getApplication()).getComponent().inject(this);
-        mainFragment = new MainFragment(this);
-        ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.main_fragment_container_view, mainFragment);
-        ft.commit();
+
     }
 
     @Override

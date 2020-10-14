@@ -16,9 +16,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".nearbyplaces.NearByPlacesActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.category.DEFAULT" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity">

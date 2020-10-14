@@ -1,6 +1,7 @@
 package com.example.nearbyplaces.nearbyplaces;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,8 +56,10 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
     @Override
     public void onStart() {
         super.onStart();
+        Log.d("yeap", NearByPlacesActivity.stringLatitude);
         presenter.setView(this);
         presenter.loadData();
+
     }
 
     @Override
@@ -67,6 +70,7 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
 
     @Override
     public void updateData(Venue viewModel) {
+        Log.d("yeap", NearByPlacesActivity.stringLatitude + " kkkk");
         dataSet.add(viewModel);
         adapter.notifyItemInserted(dataSet.size() - 1);
     }

@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nearbyplaces.R;
+import com.example.nearbyplaces.database.DataBaseHelper;
+import com.example.nearbyplaces.database.DataBaseModel;
 import com.example.nearbyplaces.nearbyplaces.interfaces.RecyclerViewCLickListener;
 import com.example.nearbyplaces.webservice.apimodel.Venue;
 
@@ -36,8 +38,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.place_name.setText(dataSet.get(position).getName());
-        holder.place_address.setText(dataSet.get(position).getLocation().getAddress());
+        if (dataSet.size() != 0) {
+            holder.place_name.setText(dataSet.get(position).getName());
+            holder.place_address.setText(dataSet.get(position).getLocation().getAddress());
+        } else {
+            List<DataBaseModel> models = DataBaseHelper.getInstance(context).getAllPosts();
+            holder.place_name.setText(models.get(position).getPlaceName());
+            holder.place_address.setText(models.get(position).getVenueName());
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,7 +69,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return dataSet.size();
+        if (dataSet.size() == 0)
+            return DataBaseHelper.getInstance(context).getAllPosts().size();
+        else
+            return dataSet.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

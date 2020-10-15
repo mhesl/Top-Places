@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nearbyplaces.BaseFragment;
 import com.example.nearbyplaces.R;
+import com.example.nearbyplaces.database.DataBaseHelper;
+import com.example.nearbyplaces.database.DataBaseModel;
 import com.example.nearbyplaces.nearbyplaces.interfaces.RecyclerViewCLickListener;
 import com.example.nearbyplaces.root.App;
 import com.example.nearbyplaces.webservice.apimodel.Venue;
@@ -68,12 +70,11 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
         presenter.rxUnsubscribe();
     }
 
+
     @Override
     public void updateData(Venue viewModel) {
-        Log.d("yeap", NearByPlacesActivity.stringLatitude + " kkkk");
+        DataBaseHelper.getInstance(getActivity()).addPlace(new DataBaseModel(viewModel.getLocation().getAddress(), viewModel.getName()));
         dataSet.add(viewModel);
         adapter.notifyItemInserted(dataSet.size() - 1);
     }
-
-
 }

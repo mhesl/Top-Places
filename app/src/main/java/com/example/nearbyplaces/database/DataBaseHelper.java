@@ -18,10 +18,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //Table columns
     private static final String VENUE_NAME = "venue_name";
     private static final String PLACE_NAME = "place_name";
-    private static final String PLACE_ID = "place_name";
+    private static final String PLACE_ID = "place_id";
 
 
-    private static DataBaseHelper instance;
+    private static DataBaseHelper instance = null;
     private SQLiteDatabase db;
 
     private DataBaseHelper(Context context) {
@@ -65,7 +65,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    private void addPlace(DataBaseModel model) {
+    public void addPlace(DataBaseModel model) {
         db = getWritableDatabase();
 
         db.beginTransaction();

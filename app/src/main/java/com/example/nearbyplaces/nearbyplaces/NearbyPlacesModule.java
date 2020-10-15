@@ -1,6 +1,7 @@
 package com.example.nearbyplaces.nearbyplaces;
 
 
+
 import com.example.nearbyplaces.webservice.NearbyPlacesApiService;
 
 import javax.inject.Singleton;

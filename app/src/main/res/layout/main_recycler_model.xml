@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:padding="10dp">
+    android:padding="7dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -19,6 +19,7 @@
         android:dividerHeight="0.0px"
         android:elevation="8dp"
         android:hardwareAccelerated="true"
+        app:cardCornerRadius="8dp"
         app:cardElevation="5dp"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -30,6 +31,7 @@
                 android:id="@+id/place_image"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +45,7 @@
                 android:layout_marginEnd="24dp"
                 android:text="@string/place_name"
                 android:textColor="#000"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/place_image"
                 app:layout_constraintTop_toTopOf="parent" />
 

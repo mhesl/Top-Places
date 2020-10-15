@@ -1,7 +1,6 @@
 package com.example.nearbyplaces.nearbyplaces;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import com.example.nearbyplaces.database.DataBaseHelper;
 import com.example.nearbyplaces.database.DataBaseModel;
 import com.example.nearbyplaces.nearbyplaces.interfaces.RecyclerViewCLickListener;
 import com.example.nearbyplaces.root.App;
+import com.example.nearbyplaces.webservice.GPSTracker;
 import com.example.nearbyplaces.webservice.apimodel.Venue;
 
 import java.util.ArrayList;
@@ -30,7 +30,6 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
     NearbyPlacesActivityMVP.Presenter presenter;
 
 
-    private RecyclerView recyclerView;
     private List<Venue> dataSet;
     private RecyclerAdapter adapter;
     private RecyclerViewCLickListener cLickListener;
@@ -45,12 +44,20 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.main_fragment, container, false);
-        ((App) getActivity().getApplication()).getComponent().inj(this);
-        recyclerView = view.findViewById(R.id.main_recycler_view);
+        ((App) requireActivity().getApplication()).getComponent().inj(this);
+        RecyclerView recyclerView = view.findViewById(R.id.main_recycler_view);
         dataSet = new ArrayList<>();
         adapter = new RecyclerAdapter(dataSet, cLickListener, getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        // check if GPS enabled
+        GPSTracker gpsTracker = new GPSTracker(getActivity());
+        if (gpsTracker.getIsGPSTrackingEnabled()) {
+            NearByPlacesActivity.stringLatitude = String.valueOf(gpsTracker.getLatitude());
+            NearByPlacesActivity.stringLongitude = String.valueOf(gpsTracker.getLongitude());
+        } else {
+            gpsTracker.showSettingsAlert();
+        }
         return view;
     }
 
@@ -58,7 +65,6 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("yeap", NearByPlacesActivity.stringLatitude);
         presenter.setView(this);
         presenter.loadData();
 

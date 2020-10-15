@@ -44,16 +44,6 @@ public class NearByPlacesActivity extends AppCompatActivity implements RecyclerV
         ft.add(R.id.main_fragment_container_view, mainFragment);
         ft.commit();
 
-//        // check if GPS enabled
-//        GPSTracker gpsTracker = new GPSTracker(this);
-//        if (gpsTracker.getIsGPSTrackingEnabled()) {
-//            stringLatitude = String.valueOf(gpsTracker.getLatitude());
-//            stringLongitude = String.valueOf(gpsTracker.getLongitude());
-//            System.out.println(stringLatitude + stringLongitude);
-//        } else {
-//            gpsTracker.showSettingsAlert();
-//
-//        }
 
     }
 

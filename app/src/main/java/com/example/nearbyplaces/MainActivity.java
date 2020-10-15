@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         }
         mFusedLocationClient.getLastLocation().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-
                 Location location = task.getResult();
                 latitude = String.valueOf(location.getLatitude());
                 longitude = String.valueOf(location.getLongitude());

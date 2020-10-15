@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -53,10 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void getLastKnownLocation() {
-        Log.d("yeap", "lastKnown");
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("yeap", "lastKnownFu");
 
             return;
         }
@@ -65,14 +61,11 @@ public class MainActivity extends AppCompatActivity {
                 Location location = task.getResult();
                 latitude = String.valueOf(location.getLatitude());
                 longitude = String.valueOf(location.getLongitude());
-                Log.d("yeap", latitude + " " + longitude);
                 Intent intent = new Intent(getBaseContext(), NearByPlacesActivity.class);
                 intent.putExtra("latitude", latitude);
                 intent.putExtra("longitude", longitude);
                 startActivity(intent);
             } else {
-                Log.d("yeap", "fu");
-
                 Toast.makeText(this, "getting location failed", Toast.LENGTH_LONG).show();
             }
 
@@ -81,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void buildAlertMessageNoGps() {
-        Log.d("yeap", "builder called");
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("This application requires GPS to work properly, do you want to enable it?")
@@ -95,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getLocationPermission() {
-        Log.d("yeap", "getPer");
 
         /*
          * Request location permission, so that we can get the location of the
@@ -107,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
             getLastKnownLocation();
-            Log.d("yeap", "yoyoyo");
 
         } else {
             ActivityCompat.requestPermissions(this,
@@ -121,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        Log.d("yeap", "onReqPerRes");
         mLocationPermissionGranted = false;
         if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
             if (grantResults.length > 0
@@ -136,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("yeap", "onActivityResult: called.");
         if (requestCode == PERMISSIONS_REQUEST_ENABLE_GPS) {
             if (mLocationPermissionGranted) {
                 getLastKnownLocation();

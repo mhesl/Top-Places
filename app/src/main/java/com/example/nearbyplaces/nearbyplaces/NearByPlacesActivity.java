@@ -1,7 +1,6 @@
 package com.example.nearbyplaces.nearbyplaces;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -34,8 +33,8 @@ public class NearByPlacesActivity extends AppCompatActivity implements RecyclerV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_near_by_places);
         // getting latitude and longitude of location from intent
-        stringLongitude = getIntent().getStringExtra("latitude");
-        stringLatitude = getIntent().getStringExtra("longitude");
+        stringLatitude = getIntent().getStringExtra("latitude");
+        stringLongitude = getIntent().getStringExtra("longitude");
 
         DataBaseHelper.getInstance(this);
         ((App) getApplication()).getComponent().inject(this);
@@ -81,15 +80,13 @@ public class NearByPlacesActivity extends AppCompatActivity implements RecyclerV
 
     @Override
     public void onClickListener(int position) {
-        Log.d("yaep", "yeap");
+
         Bundle bundle = new Bundle();
         bundle.putString("position", String.valueOf(position));
         detailFragment = new DetailFragment();
         detailFragment.setArguments(bundle);
         ft = getSupportFragmentManager().beginTransaction();
         ft.hide(mainFragment);
-        // ft.hide(mainFragment);
-        //ft.replace(R.id.main_fragment_container_view, detailFragment);
         ft.add(R.id.main_fragment_container_view, detailFragment);
         ft.commit();
     }

@@ -109,7 +109,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return models;
     }
 
-    public void deleteAllPostsAndUsers() {
+    public void deleteAllPosts() {
         db = getWritableDatabase();
         db.beginTransaction();
         try {

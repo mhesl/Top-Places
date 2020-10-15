@@ -33,6 +33,7 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
     private List<Venue> dataSet;
     private RecyclerAdapter adapter;
     private RecyclerViewCLickListener cLickListener;
+    private boolean isDataBaseCleaned = false;
 
 
     public MainFragment(RecyclerViewCLickListener cLickListener) {
@@ -79,6 +80,10 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
 
     @Override
     public void updateData(Venue viewModel) {
+        if (!isDataBaseCleaned) {
+            DataBaseHelper.getInstance(getActivity()).deleteAllPosts();
+            isDataBaseCleaned = true;
+        }
         DataBaseHelper.getInstance(getActivity()).addPlace(new DataBaseModel(viewModel.getLocation().getAddress(), viewModel.getName()));
         dataSet.add(viewModel);
         adapter.notifyItemInserted(dataSet.size() - 1);

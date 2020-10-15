@@ -1,6 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#DDDDDD">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/place_round"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="209dp"
+        android:background="#0AAEC3"
+        android:gravity="center"
+        android:stretchColumns="0,1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_column="0"
+                android:layout_margin="1dp"
+                android:fontFamily="casual"
+                android:gravity="center"
+                android:text="Place name : "
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_column="1"
+                android:layout_margin="1dp"
+                android:background="#14C5DC"
+                android:gravity="center"
+                android:text="square"
+                android:textStyle="bold" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_column="0"
+                android:layout_margin="1dp"
+                android:fontFamily="casual"
+                android:gravity="center"
+                android:text="Address :"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_column="1"
+                android:layout_margin="1dp"
+                android:background="#14C5DC"
+                android:gravity="center"
+                android:text="Miles "
+                android:textStyle="bold" />
+
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_column="0"
+                android:layout_margin="1dp"
+                android:fontFamily="casual"
+
+                android:gravity="center"
+                android:text=" Cross street :"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_column="1"
+                android:layout_margin="1dp"
+                android:background="#14C5DC"
+                android:gravity="center"
+                android:text=" Text" />
+
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_column="0"
+                android:layout_margin="1dp"
+                android:fontFamily="casual"
+                android:gravity="center"
+                android:text="Distance : "
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_column="1"
+                android:layout_margin="1dp"
+                android:background="#14C5DC"
+                android:gravity="center"
+                android:text=" Text" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_column="0"
+                android:layout_margin="1dp"
+                android:fontFamily="casual"
+                android:gravity="center"
+                android:text="City : "
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_column="1"
+                android:layout_margin="1dp"
+                android:background="#14C5DC"
+                android:gravity="center"
+                android:text=" Text" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_column="0"
+                android:layout_margin="1dp"
+                android:fontFamily="casual"
+                android:gravity="center"
+                android:text="Complete address :"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_column="1"
+                android:layout_margin="1dp"
+                android:background="#14C5DC"
+                android:gravity="center"
+                android:text=" isfahan , meidan naghsh" />
+
+
+        </TableRow>
+
+
+    </TableLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +27,6 @@ public class DetailFragment extends BaseFragment {
      */
     @Override
     public boolean onBackPressed() {
-        Toast.makeText(getActivity(), "Back Pressed", Toast.LENGTH_SHORT).show();
         return true;
     }
 

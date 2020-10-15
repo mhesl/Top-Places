@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,17 +38,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DataBaseHelper.getInstance(this);
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            getLastKnownLocation();
-
-        }
-
         final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
         }
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            getLastKnownLocation();
+        } else {
+            getLocationPermission();
+        }
+
+
     }
 
 
@@ -64,7 +67,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), NearByPlacesActivity.class);
                 intent.putExtra("latitude", latitude);
                 intent.putExtra("longitude", longitude);
-                startActivity(intent);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        startActivity(intent);
+                        finish();
+                    }
+                }, 3000);
             } else {
                 Toast.makeText(this, "getting location failed", Toast.LENGTH_LONG).show();
             }

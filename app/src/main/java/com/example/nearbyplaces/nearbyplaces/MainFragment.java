@@ -1,5 +1,8 @@
 package com.example.nearbyplaces.nearbyplaces;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +37,9 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
     private RecyclerAdapter adapter;
     private RecyclerViewCLickListener cLickListener;
     private boolean isDataBaseCleaned = false;
+    private RecyclerView recyclerView;
+    private boolean isInit = false;
+    private boolean isConnected;
 
 
     public MainFragment(RecyclerViewCLickListener cLickListener) {
@@ -46,18 +52,24 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.main_fragment, container, false);
         ((App) requireActivity().getApplication()).getComponent().inj(this);
-        RecyclerView recyclerView = view.findViewById(R.id.main_recycler_view);
+        ConnectivityManager cm =
+                (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        recyclerView = view.findViewById(R.id.main_recycler_view);
         dataSet = new ArrayList<>();
-        adapter = new RecyclerAdapter(dataSet, cLickListener, getContext());
-        recyclerView.setAdapter(adapter);
+        if (!isConnected) {
+            adapter = new RecyclerAdapter(dataSet, cLickListener, getContext(), isConnected);
+            recyclerView.setAdapter(adapter);
+        }
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        // check if GPS enabled
+        //check if GPS enabled
         GPSTracker gpsTracker = new GPSTracker(getActivity());
-        if (gpsTracker.getIsGPSTrackingEnabled()) {
+        if (gpsTracker.getIsGPSTrackingEnabled() && gpsTracker.getLatitude() != 0) {
             NearByPlacesActivity.stringLatitude = String.valueOf(gpsTracker.getLatitude());
             NearByPlacesActivity.stringLongitude = String.valueOf(gpsTracker.getLongitude());
-        } else {
-            gpsTracker.showSettingsAlert();
         }
         return view;
     }
@@ -86,6 +98,12 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
         }
         DataBaseHelper.getInstance(getActivity()).addPlace(new DataBaseModel(viewModel.getLocation().getAddress(), viewModel.getName()));
         dataSet.add(viewModel);
+        if (!isInit) {
+            adapter = new RecyclerAdapter(dataSet, cLickListener, getContext(), isConnected);
+            recyclerView.setAdapter(adapter);
+            isInit = true;
+        }
         adapter.notifyItemInserted(dataSet.size() - 1);
+
     }
 }

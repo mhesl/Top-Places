@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,11 +85,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             values.put(PLACE_CROSS, model.getCrossStreet());
             values.put(PLACE_DISTANCE, model.getDistance());
 
-            // Notice how we haven't specified the primary key. SQLite auto increments the primary key column.
+
             db.insertOrThrow(TABLE_NAME, null, values);
             db.setTransactionSuccessful();
         } catch (Exception e) {
-            Log.d("yeap", "Error while trying to add post to database");
+            e.printStackTrace();
         } finally {
             db.endTransaction();
         }
@@ -116,7 +115,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
-            Log.d("yeap", "Error while trying to get posts from database");
+            e.printStackTrace();
         } finally {
             if (cursor != null && !cursor.isClosed()) {
                 cursor.close();
@@ -132,7 +131,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             db.delete(TABLE_NAME, null, null);
             db.setTransactionSuccessful();
         } catch (Exception e) {
-            Log.d("yeap", "Error while trying to delete all posts and users");
+            e.printStackTrace();
         } finally {
             db.endTransaction();
         }

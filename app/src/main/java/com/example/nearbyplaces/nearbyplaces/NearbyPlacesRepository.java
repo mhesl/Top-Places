@@ -25,6 +25,7 @@ public class NearbyPlacesRepository implements Repository {
     }
 
 
+    // data will update automatically after 30 seconds
     public boolean isUpToDate() {
         return System.currentTimeMillis() - timestamp < STALE_MS;
     }
@@ -40,6 +41,8 @@ public class NearbyPlacesRepository implements Repository {
         }
     }
 
+
+    // calling  api and getting new data
     @Override
     public Observable<Venue> getResultsFromNetwork() {
         Observable<TopPlaces> topRatedObservable = nearbyPlacesApiService.getNearByPlaces();

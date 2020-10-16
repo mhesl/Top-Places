@@ -32,7 +32,7 @@
                 android:id="@+id/place_image"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-
+                android:background="#A5CDED"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

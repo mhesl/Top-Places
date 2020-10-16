@@ -22,15 +22,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public static RecyclerViewCLickListener itemListener;
     private List<Venue> dataSet;
     private Context context;
-    List<DataBaseModel> models;
+    private List<DataBaseModel> models;
     private boolean internet;
 
 
     public RecyclerAdapter(List<Venue> dataSet, RecyclerViewCLickListener itemListener, Context context, boolean internet) {
         this.dataSet = dataSet;
         this.internet = internet;
-        RecyclerAdapter.itemListener = itemListener;
         this.context = context;
+        RecyclerAdapter.itemListener = itemListener;
         models = DataBaseHelper.getInstance(context).getAllPosts();
     }
 
@@ -42,6 +42,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        // if internet is connected and distance is less than 100 meters
         if (internet) {
 
             holder.place_name.setText(dataSet.get(position).getName());
@@ -52,12 +53,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             holder.place_address.setText(models.get(position).getVenueName());
         }
         holder.place_image.setImageResource(R.drawable.places);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RecyclerAdapter.itemListener.onClickListener(position);
-            }
-        });
+        holder.itemView.setOnClickListener(view -> RecyclerAdapter.itemListener.onClickListener(position));
 //        System.out.println(dataSet.get(position)
 //                .getCategories().get(0)
 //                .getIcon().getPrefix());

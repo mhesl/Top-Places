@@ -45,8 +45,6 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
     public MainFragment(RecyclerViewCLickListener cLickListener) {
         this.cLickListener = cLickListener;
     }
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,11 +54,7 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
         assert getArguments() != null;
         isFar = getArguments().getBoolean("distance");
 
-        ConnectivityManager cm =
-                (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
+        isConnected();
         recyclerView = view.findViewById(R.id.main_recycler_view);
         dataSet = new ArrayList<>();
         if (!isConnected || !isFar) {
@@ -68,13 +62,23 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
             recyclerView.setAdapter(adapter);
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        //check if GPS enabled
+
+        //check if GPS enabled and updating it after 50 meters or 1 minute
         GPSTracker gpsTracker = new GPSTracker(getActivity());
         if (gpsTracker.getIsGPSTrackingEnabled() && gpsTracker.getLatitude() != 0) {
             NearByPlacesActivity.stringLatitude = String.valueOf(gpsTracker.getLatitude());
             NearByPlacesActivity.stringLongitude = String.valueOf(gpsTracker.getLongitude());
         }
         return view;
+    }
+
+    // check that is there internet connection or not
+    private void isConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
     }
 
 
@@ -94,12 +98,14 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
     }
 
 
+    // updating data
     @Override
     public void updateData(Venue viewModel) {
         if (!isDataBaseCleaned) {
             DataBaseHelper.getInstance(getActivity()).deleteAllPosts();
             isDataBaseCleaned = true;
         }
+        // writing data to database
         DataBaseHelper.getInstance(getActivity()).addPlace(
                 new DataBaseModel(
                         viewModel.getLocation().getAddress(),

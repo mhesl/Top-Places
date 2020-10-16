@@ -53,10 +53,9 @@
                 android:layout_column="1"
                 android:layout_margin="1dp"
                 android:text="@string/empty"
-
                 android:background="#14C5DC"
                 android:gravity="center"
-                android:textStyle="bold" />
+                 />
 
 
         </TableRow>
@@ -88,8 +87,7 @@
                 android:layout_margin="1dp"
                 android:background="#14C5DC"
                 android:text="@string/empty"
-                android:gravity="center"
-                android:textStyle="bold" />
+                android:gravity="center" />
 
         </TableRow>
 
@@ -120,7 +118,6 @@
                 android:layout_margin="1dp"
                 android:background="#14C5DC"
                 android:gravity="center"
-
                 android:text="@string/empty" />
 
 
@@ -219,7 +216,6 @@
                 android:layout_margin="1dp"
                 android:background="#14C5DC"
                 android:gravity="center"
-
                 android:text="@string/empty" />
 
 

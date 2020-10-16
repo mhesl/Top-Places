@@ -18,6 +18,7 @@ public class NearbyPlacesPresenter implements NearbyPlacesActivityMVP.Presenter 
     }
 
 
+    // loading data from model
     @Override
     public void loadData() {
         subscription = model
@@ -49,6 +50,7 @@ public class NearbyPlacesPresenter implements NearbyPlacesActivityMVP.Presenter 
                 });
     }
 
+    // disposing subscription after that activity destroyed for preventing of memory leak
     @Override
     public void rxUnsubscribe() {
         if (subscription != null) {

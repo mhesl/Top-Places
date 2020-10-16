@@ -2,7 +2,6 @@ package com.example.nearbyplaces.nearbyplaces;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -42,11 +41,10 @@ public class NearByPlacesActivity extends AppCompatActivity implements RecyclerV
 
         lastLatitude = sharedPreferences.getString("latitude", "");
         lastLongitude = sharedPreferences.getString("longitude", "");
-        Log.d("yeap", lastLatitude + "    " + lastLongitude);
+
         // getting latitude and longitude of location from intent
         stringLatitude = getIntent().getStringExtra("latitude");
         stringLongitude = getIntent().getStringExtra("longitude");
-        Log.d("yeap", stringLatitude + "     " + stringLongitude);
 
         if (lastLongitude.equals("") || lastLatitude.equals("")) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -66,7 +64,6 @@ public class NearByPlacesActivity extends AppCompatActivity implements RecyclerV
                 editor.putString("longitude", stringLongitude);
                 editor.apply();
             }
-            Log.d("yeap", isFar + "");
         }
 
 
@@ -80,6 +77,8 @@ public class NearByPlacesActivity extends AppCompatActivity implements RecyclerV
         ft.commit();
     }
 
+
+    // handling beck press button in fragments
     @Override
     public void onBackPressed() {
         List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
@@ -99,6 +98,8 @@ public class NearByPlacesActivity extends AppCompatActivity implements RecyclerV
 
     }
 
+
+    // getting distance between two different  latitude and longitude
     private boolean distance(double lat1, double lon1, double lat2, double lon2) {
         double theta = lon1 - lon2;
         double dist = Math.sin(deg2rad(lat1))
@@ -122,9 +123,9 @@ public class NearByPlacesActivity extends AppCompatActivity implements RecyclerV
     }
 
 
+    // click listener for moving to detail fragment
     @Override
     public void onClickListener(int position) {
-
         Bundle bundle = new Bundle();
         bundle.putString("position", String.valueOf(position));
         detailFragment = new DetailFragment();

@@ -12,6 +12,7 @@ public class NearbyPlacesModel implements NearbyPlacesActivityMVP.Model {
     }
 
 
+    // getting data from repository
     @Override
     public Observable<Venue> result() {
         return repository.getResultData();

@@ -37,13 +37,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ConnectivityManager cm =
-                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
+        boolean isConnected = isConnected();
         if (!isConnected)
             Toast.makeText(getApplicationContext(), "If it's  possible , connect the device to the internet", Toast.LENGTH_LONG).show();
+
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -56,6 +54,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // check that if internet is connected or not
+    private boolean isConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+    }
+
+
+    // getting last known location latitude and longitude
     private void getLastKnownLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -85,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // asking user to enable Gps
     private void buildAlertMessageNoGps() {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);

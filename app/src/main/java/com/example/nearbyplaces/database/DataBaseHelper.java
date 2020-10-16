@@ -18,6 +18,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //Table columns
     private static final String VENUE_NAME = "venue_name";
     private static final String PLACE_NAME = "place_name";
+    private static final String PLACE_ADDRESS = "place_address";
+    private static final String PLACE_CITY = "place_city";
+    private static final String PLACE_DISTANCE = "place_distance";
+    private static final String PLACE_CROSS = "place_cross";
     private static final String PLACE_ID = "place_id";
 
 
@@ -45,7 +49,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 "(" +
                 PLACE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 PLACE_NAME + " TEXT, " +
-                VENUE_NAME + " TEXT " +
+                VENUE_NAME + " TEXT, " +
+                PLACE_ADDRESS + " TEXT, " +
+                PLACE_CITY + " TEXT, " +
+                PLACE_CROSS + " TEXT, " +
+                PLACE_DISTANCE + " INTEGER " +
                 ")";
         db.execSQL(CREATE_PLACES_TABLE);
 
@@ -73,6 +81,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(VENUE_NAME, model.getVenueName());
             values.put(PLACE_NAME, model.getPlaceName());
+            values.put(PLACE_ADDRESS, model.getCompleteAddress());
+            values.put(PLACE_CITY, model.getCity());
+            values.put(PLACE_CROSS, model.getCrossStreet());
+            values.put(PLACE_DISTANCE, model.getDistance());
 
             // Notice how we haven't specified the primary key. SQLite auto increments the primary key column.
             db.insertOrThrow(TABLE_NAME, null, values);
@@ -94,7 +106,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 do {
                     DataBaseModel model = new DataBaseModel(
                             cursor.getString(cursor.getColumnIndex(VENUE_NAME)),
-                            cursor.getString(cursor.getColumnIndex(PLACE_NAME))
+                            cursor.getString(cursor.getColumnIndex(PLACE_NAME)),
+                            cursor.getString(cursor.getColumnIndex(PLACE_ADDRESS)),
+                            cursor.getString(cursor.getColumnIndex(PLACE_CROSS)),
+                            cursor.getString(cursor.getColumnIndex(PLACE_CITY)),
+                            cursor.getInt(cursor.getColumnIndex(PLACE_DISTANCE))
                     );
                     models.add(model);
                 } while (cursor.moveToNext());

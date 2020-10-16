@@ -23,6 +23,9 @@ public class Location {
     @SerializedName("labeledLatLngs")
     @Expose
     private List<LabeledLatLng> labeledLatLngs = null;
+    @SerializedName("distance")
+    @Expose
+    private int distance;
     @SerializedName("postalCode")
     @Expose
     private String postalCode;
@@ -60,6 +63,14 @@ public class Location {
 
     public Double getLat() {
         return lat;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 
     public void setLat(Double lat) {

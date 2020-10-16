@@ -3,4 +3,11 @@
     <string name="place_name">place name</string>
     <string name="place_address">address of the place</string>
     <string name="welcome_to_n_nearby_places">Welcome to \n Nearby Places</string>
+    <string name="place_nameـ">Place name :</string>
+    <string name="empty">Empty</string>
+    <string name="complete_address">Complete address :</string>
+    <string name="city">City :</string>
+    <string name="distance">Distance :</string>
+    <string name="cross_street">Cross street :</string>
+    <string name="address">Address :</string>
 </resources>

@@ -40,6 +40,9 @@ public class ApiModuleForPlaces {
             ).addQueryParameter(
                     "ll",
                     NearByPlacesActivity.stringLatitude + "," + NearByPlacesActivity.stringLongitude
+            ).addQueryParameter(
+                    "radius",
+                    "150"
             ).build();
             request = request.newBuilder().url(url).build();
             return chain.proceed(request);

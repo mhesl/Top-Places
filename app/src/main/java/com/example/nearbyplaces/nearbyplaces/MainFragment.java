@@ -96,7 +96,14 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
             DataBaseHelper.getInstance(getActivity()).deleteAllPosts();
             isDataBaseCleaned = true;
         }
-        DataBaseHelper.getInstance(getActivity()).addPlace(new DataBaseModel(viewModel.getLocation().getAddress(), viewModel.getName()));
+        DataBaseHelper.getInstance(getActivity()).addPlace(
+                new DataBaseModel(
+                        viewModel.getLocation().getAddress(),
+                        viewModel.getName(),
+                        viewModel.getLocation().getFormattedAddress().get(0),
+                        viewModel.getLocation().getCrossStreet(),
+                        viewModel.getLocation().getCity(),
+                        viewModel.getLocation().getDistance()));
         dataSet.add(viewModel);
         if (!isInit) {
             adapter = new RecyclerAdapter(dataSet, cLickListener, getContext(), isConnected);

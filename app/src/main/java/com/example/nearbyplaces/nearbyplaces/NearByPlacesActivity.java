@@ -1,5 +1,6 @@
 package com.example.nearbyplaces.nearbyplaces;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -22,22 +23,58 @@ public class NearByPlacesActivity extends AppCompatActivity implements RecyclerV
     @Inject
     NearbyPlacesActivityMVP.Presenter presenter;
 
-    public static String stringLatitude;
-    public static String stringLongitude;
-    DetailFragment detailFragment;
     private FragmentTransaction ft;
     private MainFragment mainFragment;
+    private SharedPreferences sharedPreferences;
+    public static String stringLatitude;
+    public static String stringLongitude;
+    private String lastLatitude;
+    private String lastLongitude;
+    private DetailFragment detailFragment;
+    private boolean isFar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_near_by_places);
+        sharedPreferences = getSharedPreferences("POSITION", MODE_PRIVATE);
+
+        lastLatitude = sharedPreferences.getString("latitude", "");
+        lastLongitude = sharedPreferences.getString("longitude", "");
+        Log.d("yeap", lastLatitude + "    " + lastLongitude);
         // getting latitude and longitude of location from intent
         stringLatitude = getIntent().getStringExtra("latitude");
         stringLongitude = getIntent().getStringExtra("longitude");
-        Log.d("yeap", stringLatitude + stringLongitude);
+        Log.d("yeap", stringLatitude + "     " + stringLongitude);
+
+        if (lastLongitude.equals("") || lastLatitude.equals("")) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("latitude", stringLatitude);
+            editor.putString("longitude", stringLongitude);
+            editor.apply();
+            isFar = true;
+        } else {
+            isFar = distance(
+                    Double.parseDouble(lastLatitude),
+                    Double.parseDouble(lastLongitude),
+                    Double.parseDouble(stringLatitude),
+                    Double.parseDouble(stringLongitude));
+            if (isFar) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("latitude", stringLatitude);
+                editor.putString("longitude", stringLongitude);
+                editor.apply();
+            }
+            Log.d("yeap", isFar + "");
+        }
+
+
         ((App) getApplication()).getComponent().inject(this);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("distance", isFar);
         mainFragment = new MainFragment(this);
+        mainFragment.setArguments(bundle);
         ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.main_fragment_container_view, mainFragment);
         ft.commit();
@@ -62,7 +99,27 @@ public class NearByPlacesActivity extends AppCompatActivity implements RecyclerV
 
     }
 
+    private boolean distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1))
+                * Math.sin(deg2rad(lat2))
+                + Math.cos(deg2rad(lat1))
+                * Math.cos(deg2rad(lat2))
+                * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        return !(dist < 0.1);
 
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
 
 
     @Override

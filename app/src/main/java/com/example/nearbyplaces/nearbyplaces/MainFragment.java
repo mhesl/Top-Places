@@ -40,7 +40,7 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
     private RecyclerView recyclerView;
     private boolean isInit = false;
     private boolean isConnected;
-
+    private boolean isFar;
 
     public MainFragment(RecyclerViewCLickListener cLickListener) {
         this.cLickListener = cLickListener;
@@ -52,6 +52,10 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.main_fragment, container, false);
         ((App) requireActivity().getApplication()).getComponent().inj(this);
+
+        assert getArguments() != null;
+        isFar = getArguments().getBoolean("distance");
+
         ConnectivityManager cm =
                 (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -59,11 +63,10 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
                 activeNetwork.isConnectedOrConnecting();
         recyclerView = view.findViewById(R.id.main_recycler_view);
         dataSet = new ArrayList<>();
-        if (!isConnected) {
-            adapter = new RecyclerAdapter(dataSet, cLickListener, getContext(), isConnected);
+        if (!isConnected || !isFar) {
+            adapter = new RecyclerAdapter(dataSet, cLickListener, getContext(), false);
             recyclerView.setAdapter(adapter);
         }
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         //check if GPS enabled
         GPSTracker gpsTracker = new GPSTracker(getActivity());
@@ -79,8 +82,9 @@ public class MainFragment extends BaseFragment implements NearbyPlacesActivityMV
     public void onStart() {
         super.onStart();
         presenter.setView(this);
-        presenter.loadData();
-
+        if (isFar && isConnected) {
+            presenter.loadData();
+        }
     }
 
     @Override

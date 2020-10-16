@@ -1,7 +1,6 @@
 package com.example.nearbyplaces.nearbyplaces;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Log.d("yeap", "bind");
         if (internet) {
 
             holder.place_name.setText(dataSet.get(position).getName());
